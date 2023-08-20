@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Convert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background-color 1s ease;
+            background-color: white; /* Set initial background color to white */
+        }
+        .maincontainer {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.8);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #666;
+            float: left;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #008cff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #24dca5;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="maincontainer">
+        <h1>Temperature</h1>
+        <label for="unit" style="margin-right: 5px;">Choose</label>
+        <select id="unit">
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+        </select> 
+        <label for="temperature">Input temperature Unit:</label>
+        <input type="number" id="temperature">
+        <button onclick="convert()">Convert</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function convert() {
+            var unit = document.getElementById("unit").value;
+            var temperature = parseFloat(document.getElementById("temperature").value);
+            var result = "";
+            if (unit === 'C') {
+                var fahrenheit = (temperature * 9/5) + 32;
+                result = temperature + "°C is " + fahrenheit + "°F";
+                updateBackgroundColor(temperature);
+            } else if (unit === 'F') {
+                var celsius = (temperature - 32) * 5/9;
+                result = temperature + "°F is " + celsius + "°C";
+                updateBackgroundColor(celsius);
+            }
+
+            document.getElementById("result").innerHTML = result;
+        }
+
+        function updateBackgroundColor(temp) {
+            var backgroundColor = getBackgroundColor(temp);
+            document.body.style.background = backgroundColor;
+        }
+
+        function getBackgroundColor(temp) {
+            if (temp <= -10) {
+                return "#74B7FF"; // Light Blue
+            } else if (temp <= 0) {
+                return "#87CEEB"; // Sky Blue
+            } else if (temp <= 10) {
+                return "#00FF7F"; // Spring Green
+            } else if (temp <= 30) {
+                return "#FFD700"; // Gold
+            } else if (temp <= 50) {
+                return "#FFA500"; // Orange
+            } else {
+                return "#FF4500"; // Orange Red
+            }
+        }
+    </script>
+</body>
+</html>
